@@ -5,8 +5,8 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
 
-import com.hitherejoe.sample.ui.data.model.IconItem;
-import com.hitherejoe.sample.ui.presenter.IconItemPresenter;
+import com.hitherejoe.leanbackcards.model.IconItem;
+import com.hitherejoe.leanbackcards.presenter.IconItemPresenter;
 
 public class OptionsAdapter extends ArrayObjectAdapter {
 

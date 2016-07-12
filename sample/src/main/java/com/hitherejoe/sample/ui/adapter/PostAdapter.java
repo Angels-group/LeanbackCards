@@ -5,17 +5,16 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
 
-import com.hitherejoe.sample.ui.data.model.IconItem;
-import com.hitherejoe.sample.ui.data.model.Post;
-import com.hitherejoe.sample.ui.presenter.IconItemPresenter;
-import com.hitherejoe.sample.ui.presenter.LiveCardPresenter;
+import com.hitherejoe.leanbackcards.model.Post;
+import com.hitherejoe.leanbackcards.presenter.LiveCardPresenter;
+import com.hitherejoe.sample.ui.presenter.MyLiveCardPresenter;
 
 public class PostAdapter extends ArrayObjectAdapter {
 
     private LiveCardPresenter mOptionsItemPresenter;
 
     public PostAdapter(Context context) {
-        mOptionsItemPresenter = new LiveCardPresenter(context);
+        mOptionsItemPresenter = new MyLiveCardPresenter(context);
         setPresenterSelector(new PresenterSelector() {
             @Override
             public Presenter getPresenter(Object item) {

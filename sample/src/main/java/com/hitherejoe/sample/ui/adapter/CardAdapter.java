@@ -5,15 +5,16 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.PresenterSelector;
 
-import com.hitherejoe.leanbackcards.LiveCardView;
-import com.hitherejoe.sample.ui.data.model.Post;
-import com.hitherejoe.sample.ui.presenter.IconItemPresenter;
-import com.hitherejoe.sample.ui.presenter.LiveCardPresenter;
-import com.hitherejoe.sample.ui.presenter.LoadingPresenter;
-import com.hitherejoe.sample.ui.presenter.TagItemPresenter;
 import com.hitherejoe.leanbackcards.IconCardView;
 import com.hitherejoe.leanbackcards.LoadingCardView;
 import com.hitherejoe.leanbackcards.TagCardView;
+import com.hitherejoe.leanbackcards.model.Post;
+import com.hitherejoe.leanbackcards.presenter.IconItemPresenter;
+import com.hitherejoe.leanbackcards.presenter.LiveCardPresenter;
+import com.hitherejoe.leanbackcards.presenter.LoadingPresenter;
+import com.hitherejoe.leanbackcards.presenter.TagItemPresenter;
+import com.hitherejoe.sample.ui.presenter.MyLiveCardPresenter;
+import com.hitherejoe.sample.ui.presenter.MyTagItemPresenter;
 
 
 public class CardAdapter extends ArrayObjectAdapter {
@@ -26,8 +27,8 @@ public class CardAdapter extends ArrayObjectAdapter {
     public CardAdapter(Context context) {
         mLoadingPresenter = new LoadingPresenter();
         mIconItemPresenter = new IconItemPresenter();
-        mTagItemPresenter = new TagItemPresenter();
-        mLiveCardPresenter = new LiveCardPresenter(context);
+        mTagItemPresenter = new MyTagItemPresenter();
+        mLiveCardPresenter = new MyLiveCardPresenter(context);
         setPresenterSelector(new PresenterSelector() {
             @Override
             public Presenter getPresenter(Object item) {

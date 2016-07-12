@@ -1,4 +1,4 @@
-package com.hitherejoe.sample.ui.data.model;
+package com.hitherejoe.leanbackcards.model;
 
 public class IconItem {
     public String title;

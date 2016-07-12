@@ -1,4 +1,4 @@
-package com.hitherejoe.sample.ui.presenter;
+package com.hitherejoe.leanbackcards.presenter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -7,18 +7,16 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.hitherejoe.leanbackcards.LiveCardView;
-import com.hitherejoe.sample.R;
-import com.hitherejoe.sample.ui.activity.MainActivity;
-import com.hitherejoe.sample.ui.data.model.Post;
+import com.hitherejoe.leanbackcards.R;
+import com.hitherejoe.leanbackcards.model.Post;
 
-public class LiveCardPresenter extends Presenter {
+public abstract class LiveCardPresenter extends Presenter {
 
     private static final int CARD_WIDTH = 300;
     private static final int CARD_HEIGHT = 300;
-    private static int sSelectedBackgroundColor;
-    private static int sDefaultBackgroundColor;
+    private int sSelectedBackgroundColor;
+    private int sDefaultBackgroundColor;
     private Drawable mDefaultCardImage;
     private Context mContext;
 
@@ -29,9 +27,11 @@ public class LiveCardPresenter extends Presenter {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
         final Context context = parent.getContext();
-        sDefaultBackgroundColor = ContextCompat.getColor(context, R.color.primary);
-        sSelectedBackgroundColor = ContextCompat.getColor(context, R.color.primary_dark);
-        mDefaultCardImage = ContextCompat.getDrawable(context, R.drawable.ic_play);
+        sDefaultBackgroundColor = ContextCompat.getColor(parent.getContext(),
+            getDefaultBackgroundColor());
+        sSelectedBackgroundColor = ContextCompat.getColor(parent.getContext(),
+            getSelectedBackgroundColor());
+        mDefaultCardImage = ContextCompat.getDrawable(context, getDefaultCardImage());
 
         final LiveCardView cardView = new LiveCardView(parent.getContext()) {
             @Override
@@ -54,13 +54,7 @@ public class LiveCardPresenter extends Presenter {
                 if (hasFocus) {
                     cardView.startVideo();
                 } else {
-                    if (mContext instanceof MainActivity) {
-                        if (((MainActivity) mContext).isFragmentActive()) {
-                            cardView.stopVideo();
-                        }
-                    } else {
-                        cardView.stopVideo();
-                    }
+                    onLostFocus(mContext, cardView);
                 }
             }
         });
@@ -71,7 +65,7 @@ public class LiveCardPresenter extends Presenter {
         return new ViewHolder(cardView);
     }
 
-    private static void updateCardBackgroundColor(LiveCardView view, boolean selected) {
+    private void updateCardBackgroundColor(LiveCardView view, boolean selected) {
         int color = selected ? sSelectedBackgroundColor : sDefaultBackgroundColor;
         // Both background colors should be set because the view's background is temporarily visible
         // during animations.
@@ -87,19 +81,27 @@ public class LiveCardPresenter extends Presenter {
             final LiveCardView cardView = (LiveCardView) viewHolder.view;
             cardView.setTitleText(post.description);
             cardView.setContentText(post.username);
-            cardView.setMainContainerDimensions(CARD_WIDTH, CARD_HEIGHT);
-            int size = (int) (CARD_WIDTH * 1.25);
+            cardView.setMainContainerDimensions(getCardWidth(), getCardHeight());
+            int size = (int) (getCardWidth() * 1.25);
             cardView.setVideoViewSize(size, size);
             cardView.setVideoUrl(post.videoUrl);
-
-            Glide.with(cardView.getContext())
-                    .load(post.thumbnail)
-                    .centerCrop()
-                    .error(mDefaultCardImage)
-                    .into(cardView.getMainImageView());
+            cardView.getMainImageView().setImageDrawable(mContext.getDrawable(post.thumbnail));
         }
     }
 
     @Override
     public void onUnbindViewHolder(Presenter.ViewHolder viewHolder) { }
+
+    public int getCardWidth() {
+        return CARD_WIDTH;
+    }
+
+    public int getCardHeight() {
+        return CARD_HEIGHT;
+    }
+
+    public abstract int getDefaultBackgroundColor();
+    public abstract int getSelectedBackgroundColor();
+    public abstract int getDefaultCardImage();
+    public abstract void onLostFocus(Context mContext, LiveCardView liveCardView);
 }

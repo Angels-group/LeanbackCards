@@ -15,9 +15,9 @@ import com.hitherejoe.leanbackcards.TagCardView;
 import com.hitherejoe.sample.ui.adapter.CardAdapter;
 import com.hitherejoe.sample.ui.adapter.OptionsAdapter;
 import com.hitherejoe.sample.ui.adapter.PostAdapter;
-import com.hitherejoe.sample.ui.data.model.IconItem;
-import com.hitherejoe.sample.ui.data.model.Post;
-import com.hitherejoe.sample.ui.presenter.HeaderItemPresenter;
+import com.hitherejoe.leanbackcards.model.IconItem;
+import com.hitherejoe.leanbackcards.model.Post;
+import com.hitherejoe.leanbackcards.presenter.HeaderItemPresenter;
 import com.hitherejoe.sample.R;
 
 public class MainFragment extends BrowseFragment {

@@ -1,21 +1,22 @@
-package com.hitherejoe.sample.ui.presenter;
+package com.hitherejoe.leanbackcards.presenter;
 
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 
-import com.hitherejoe.sample.R;
 import com.hitherejoe.leanbackcards.TagCardView;
 
-public class TagItemPresenter extends Presenter {
+public abstract class TagItemPresenter extends Presenter {
 
     private static int sSelectedBackgroundColor;
     private static int sDefaultBackgroundColor;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        sDefaultBackgroundColor = ContextCompat.getColor(parent.getContext(), R.color.primary);
-        sSelectedBackgroundColor = ContextCompat.getColor(parent.getContext(), R.color.primary_dark);
+        sDefaultBackgroundColor = ContextCompat.getColor(parent.getContext(),
+            getDefaultBackgroundColor());
+        sSelectedBackgroundColor = ContextCompat.getColor(parent.getContext(),
+            getSelectedBackgroundColor());
 
         TagCardView cardView = new TagCardView(parent.getContext()) {
             @Override
@@ -48,4 +49,6 @@ public class TagItemPresenter extends Presenter {
 
     }
 
+    public abstract int getDefaultBackgroundColor();
+    public abstract int getSelectedBackgroundColor();
 }

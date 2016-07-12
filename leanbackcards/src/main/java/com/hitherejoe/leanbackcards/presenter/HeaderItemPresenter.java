@@ -1,4 +1,4 @@
-package com.hitherejoe.sample.ui.presenter;
+package com.hitherejoe.leanbackcards.presenter;
 
 
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hitherejoe.sample.R;
+import com.hitherejoe.leanbackcards.R;
 
 public class HeaderItemPresenter extends RowHeaderPresenter {
 
